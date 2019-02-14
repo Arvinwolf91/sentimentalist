@@ -9,9 +9,11 @@
   "author": "Johannes Fahrenkrug",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "sentiment": "^4.1.0"
   },
   "devDependencies": {
+    "eslint-config-rallycoding": "^3.2.0",
     "webpack": "^3.8.1"
   }
 }

@@ -1,4 +1,5 @@
-import * as sentiment from 'sentiment'
+import * as sentiment from 'sentiment';
+import axios from 'axios';
 
 export class Analyzer {
     static analyze(phrase) {
@@ -9,5 +10,19 @@ export class Analyzer {
 
         let result = sentiment(phrase)
         return result['score']
+    }
+
+    callAPI() {
+        axios.get('http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
+        .then(response => {
+            if (typeof nativeLog === 'function') {
+                nativeLog(`Pet title '${response.title}'`)
+            }
+            return response.title
+        })
+        .catch(error => {
+            console.log(error);
+            return "API Call Failed!"
+        });
     }
 };
