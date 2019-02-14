@@ -14,10 +14,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sentimentLabel.text = SentimentAnalyzer.shared.emoji(forScore: 5)
     }
     
     @IBAction func textDidChange(_ sender: Any) {
+        if let text = textField.text {
+            SentimentAnalyzer.shared.analyze(text) { (score) in
+                self.sentimentLabel.text = SentimentAnalyzer.shared.emoji(forScore: score)
+            }
+        }
+        
         JSAPICaller.shared.callAPI { (response) in
             print(response)
         }

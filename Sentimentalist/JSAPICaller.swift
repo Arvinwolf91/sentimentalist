@@ -35,20 +35,21 @@ class JSAPICaller: NSObject {
         self.context.evaluateScript(jsCode)
     }
 
-    func callAPI(completion: @escaping (_ response: Any) -> Void) {
+    func callAPI(completion: @escaping (_ response: String) -> Void) {
         // Run this asynchronously in the background
         DispatchQueue.global(qos: .userInitiated).async {
-            var response: Any!
+            var responseTitle: String!
             let jsModule = self.context.objectForKeyedSubscript("Sentimentalist")
             let jsAnalyzer = jsModule?.objectForKeyedSubscript("Analyzer")
             
             if let result = jsAnalyzer?.objectForKeyedSubscript("callAPI").call(withArguments: nil) {
-                response = result
+                print(result)
+                responseTitle = result.description
             }
             
             // Call the completion block on the main thread
             DispatchQueue.main.async {
-                completion(response)
+                completion(responseTitle)
             }
         }
     }

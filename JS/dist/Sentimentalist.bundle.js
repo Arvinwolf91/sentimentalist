@@ -950,29 +950,30 @@ class Analyzer {
     static analyze(phrase) {
         // Make sure nativeLog is defined and is a function
         if (typeof nativeLog === 'function') {
-            nativeLog(`Analyzing '${phrase}'`)
+            nativeLog(`Analyzing '${phrase}'`);
         }
 
-        let result = __WEBPACK_IMPORTED_MODULE_0_sentiment__(phrase)
-        return result['score']
+        const result = __WEBPACK_IMPORTED_MODULE_0_sentiment__(phrase);
+        return result.score;
     }
 
     callAPI() {
         __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
         .then(response => {
             if (typeof nativeLog === 'function') {
-                nativeLog(`Pet title '${response.title}'`)
+                nativeLog(`Pet title '${response.data.title}'`);
             }
-            return response.title
+            return response.data.title;
         })
         .catch(error => {
             console.log(error);
-            return "API Call Failed!"
+            return 'API Call Failed!';
         });
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["Analyzer"] = Analyzer;
-;
+
+
 
 /***/ }),
 /* 9 */
