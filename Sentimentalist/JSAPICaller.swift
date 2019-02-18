@@ -36,21 +36,13 @@ class JSAPICaller: NSObject {
     }
 
     func callAPI(completion: @escaping (_ response: String) -> Void) {
-        // Run this asynchronously in the background
-        DispatchQueue.global(qos: .userInitiated).async {
-            var responseTitle: String!
-            let jsModule = self.context.objectForKeyedSubscript("Sentimentalist")
-            let jsAnalyzer = jsModule?.objectForKeyedSubscript("Analyzer")
-            
-            if let result = jsAnalyzer?.objectForKeyedSubscript("callAPI").call(withArguments: nil) {
-                print(result)
-                responseTitle = result.description
-            }
-            
-            // Call the completion block on the main thread
-            DispatchQueue.main.async {
-                completion(responseTitle)
-            }
+        var responseTitle: String!
+        let jsModule = self.context.objectForKeyedSubscript("Sentimentalist")
+        let jsAnalyzer = jsModule?.objectForKeyedSubscript("Analyzer")
+        
+        if let result = jsAnalyzer?.objectForKeyedSubscript("callAPI").call(withArguments: nil) {
+            responseTitle = result.description
         }
+        completion(responseTitle)
     }
 }
